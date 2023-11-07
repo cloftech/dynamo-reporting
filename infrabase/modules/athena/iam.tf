@@ -69,32 +69,6 @@ resource "aws_iam_policy" "FunctionExecutionPolicy" {
 
 }
 
-resource "aws_iam_policy" "FunctionKMSPolicy" {
-
-  name        = "FunctionKMSPolicy"
-  description = "Permissions for KMS Key usage by Athena DynamoDB Connector Lambda Function"
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "kms:GenerateRandom",
-        ],
-        Resource = "*",
-      },
-      {
-        Effect = "Allow",
-        Action = [
-          "kms:GenerateDataKey",
-        ],
-        Resource = "*"
-      },
-    ]
-  })
-}
-
 resource "aws_iam_role_policy_attachment" "FunctionRole-PolicyAttachment" {
   role       = aws_iam_role.FunctionRole.name
   policy_arn = aws_iam_policy.FunctionExecutionPolicy.arn
